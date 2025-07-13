@@ -41,3 +41,18 @@ export async function PATCH(
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 }
+
+export async function DELETE(
+  _req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
+
+  if (!devices.has(id)) {
+    return NextResponse.json({ error: "Device not found" }, { status: 404 });
+  }
+
+  devices.delete(id);
+
+  return NextResponse.json({ success: true }, { status: 200 });
+}
