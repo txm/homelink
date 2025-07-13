@@ -34,3 +34,8 @@ export async function POST(
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
+export async function GET() {
+  const allDevices = Array.from(devices.values());
+  return NextResponse.json(allDevices, { status: 200 });
+}
