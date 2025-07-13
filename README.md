@@ -57,3 +57,132 @@ npm run dev
 
 # Run all unit tests
 npm test
+
+# 📚 API Endpoints
+
+## ➕ Register a Device
+
+**POST** `/api/devices/[type]`
+
+Registers a new device of type `light`, `thermostat`, or `camera`.
+
+### Request Body
+
+```json
+{
+  "name": "Living Room Light",
+  "status": { "on": true }
+}
+```
+
+### Response `201 Created`
+
+```json
+{
+  "id": "uuid-1234",
+  "name": "Living Room Light",
+  "type": "light",
+  "status": { "on": true }
+}
+```
+
+### Errors
+
+* `400 Bad Request` — Invalid device type or missing fields
+* `500 Internal Server Error` — Unexpected failure
+
+---
+
+## 📄 List All Devices
+
+**GET** `/api/devices`
+
+Retrieves all registered devices.
+
+### Response `200 OK`
+
+```json
+[
+  {
+    "id": "uuid-1234",
+    "name": "Living Room Light",
+    "type": "light",
+    "status": { "on": true }
+  },
+  ...
+]
+```
+
+---
+
+## 🔍 Get Device by ID
+
+**GET** `/api/devices/[id]`
+
+Returns the details of a specific device.
+
+### Response `200 OK`
+
+```json
+{
+  "id": "uuid-1234",
+  "name": "Living Room Light",
+  "type": "light",
+  "status": { "on": true }
+}
+```
+
+### Errors
+
+* `404 Not Found` — Device not found
+
+---
+
+## 🔧 Update Device
+
+**PATCH** `/api/devices/[id]`
+
+Partially updates a device's name or status.
+
+### Request Body
+
+```json
+{
+  "name": "Updated Name",
+  "status": { "on": false }
+}
+```
+
+### Response `200 OK`
+
+```json
+{
+  "id": "uuid-1234",
+  "name": "Updated Name",
+  "type": "light",
+  "status": { "on": false }
+}
+```
+
+### Errors
+
+* `400 Bad Request` — Invalid request body
+* `404 Not Found` — Device not found
+
+---
+
+## ❌ Delete Device
+
+**DELETE** `/api/devices/[id]`
+
+Removes a device from the system.
+
+### Response `200 OK`
+
+```json
+{ "success": true }
+```
+
+### Errors
+
+* `404 Not Found` — Device not found
